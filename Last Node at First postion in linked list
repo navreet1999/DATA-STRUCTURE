@@ -1,0 +1,66 @@
+#include<stdio.h>
+
+struct node
+{
+ int data;
+ struct node* next;
+}st;
+
+void insert_at_end(struct node** h,int d)
+{
+    struct node* curr=*h;
+  struct node* new_node=(struct node*)malloc(sizeof(struct node));
+    new_node->data=d;
+    new_node->next=NULL;
+
+    if(*h==NULL)
+    {
+      *h=new_node;
+    }
+    else
+    {
+     while(curr->next!=NULL)
+      {
+         curr=curr->next;
+      }
+      curr->next=new_node;
+    }
+
+}
+
+void  logic(struct node** h)
+{
+  struct node* curr=*h,*temp_data,*temp=NULL;
+  while(curr!=NULL && curr->next!=NULL && curr->next->next!=NULL)
+  {
+    curr=curr->next;
+  }
+  temp_data=curr->next->data;
+
+  curr->next=NULL;
+
+  struct node* new_node=(struct node*)malloc(sizeof(struct node));
+  new_node->data=temp_data;
+  new_node->next=*h;
+  *h=new_node;
+}
+ void print(struct node* head)
+{
+    while(head)
+    {
+    printf("%d ",head->data);
+    head=head->next;
+    }
+}
+int main()
+{
+  struct node* head=NULL;
+  insert_at_end(&head,1);
+  insert_at_end(&head,2);
+  insert_at_end(&head,3);
+  insert_at_end(&head,4);
+  insert_at_end(&head,5);
+  logic(&head);
+  print(head);
+
+}
