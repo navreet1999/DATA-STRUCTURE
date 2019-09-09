@@ -1,0 +1,80 @@
+#include<stdio.h>
+
+struct node
+{
+ int data;
+ struct node* next;
+}st;
+
+void insert_at_end(struct node** h,int d)
+{
+    struct node* curr=*h;
+  struct node* new_node=(struct node*)malloc(sizeof(struct node));
+    new_node->data=d;
+    new_node->next=NULL;
+
+    if(*h==NULL)
+    {
+      *h=new_node;
+    }
+    else
+    {
+     while(curr->next!=NULL)
+      {
+         curr=curr->next;
+      }
+      curr->next=new_node;
+    }
+
+}
+
+void duplicate(struct node* h)
+{
+  struct node *curr1=h,*curr2=NULL,*temp=NULL;
+
+  while(curr1!=NULL && curr1->next!=NULL)
+  {
+    curr2=curr1;
+    while(curr2->next!=NULL)
+    {
+      if(curr1->data == curr2->next->data)
+      {
+
+        temp=curr2->next;
+        curr2->next=curr2->next->next;
+        free(temp);
+
+      }
+      else
+      {
+          curr2=curr2->next;
+      }
+    }
+    curr1=curr1->next;
+  }
+}
+ void print(struct node* head)
+{
+    while(head!=NULL)
+    {
+    printf("%d ",head->data);
+    head=head->next;
+    }
+}
+
+int main()
+{
+  struct node* head=NULL;
+  insert_at_end(&head,12);
+  insert_at_end(&head,11);
+  insert_at_end(&head,12);
+  insert_at_end(&head,21);
+  insert_at_end(&head,41);
+  insert_at_end(&head,43);
+  insert_at_end(&head,21);
+  //print(head);
+  duplicate(head);
+  print(head);
+
+
+}
