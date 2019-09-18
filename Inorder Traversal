@@ -1,0 +1,79 @@
+/*
+Given a binary tree, return the inorder traversal of its nodes’ values.
+
+Example :
+Given binary tree
+
+   1
+    \
+     2
+    /
+   3
+return [1,3,2].
+
+Using recursion is not allowed.
+/*
+
+typedef struct stack
+{
+struct treenode *data;
+struct stack* next;
+
+}st;
+
+void push(st** top, treenode* d)
+{
+    st* new = (st*)malloc(sizeof(st));
+    new->data = d;
+    new->next = *top;
+    *top = new;
+    
+}
+
+treenode* peek(st* top)
+{
+    return top->data;
+}
+
+int empty(st* top)
+{
+    if(top==NULL)
+    {
+        return 1;
+    }
+    return 0;
+}
+void *pop(st** top)
+{
+    
+        st* temp=*top;
+        *top=(*top)->next;
+        free(temp);
+        temp=NULL;    
+}
+
+
+ 
+int* inorderTraversal(treenode* A, int *len1) {
+    struct stack *s=NULL;
+    //*len1=100000;
+    int i=0;
+    int arr[1000000];
+   // int *arr=(int *)malloc(*len1*(sizeof(int)));
+    treenode *curr=A;
+    while(!empty(s)||curr)
+    {
+        while(curr)
+        {
+            push(&s,curr);
+            curr=curr->left;
+        }
+    arr[i]=peek(s)->val;    
+    i++;
+    curr=peek(s)->right;
+    pop(&s);
+    }
+    *len1=i;
+    *arr=(int *)malloc(*len1*(sizeof(int)));
+    return arr;
+}
