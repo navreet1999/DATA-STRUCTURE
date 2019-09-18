@@ -1,0 +1,94 @@
+/*
+Preorder Traversal
+Asked in:  
+Amazon
+Microsoft
+Given a binary tree, return the preorder traversal of its nodes’ values.
+
+Example :
+Given binary tree
+
+   1
+    \
+     2
+    /
+   3
+return [1,2,3].
+/*
+
+static int count=0;
+ typedef struct stack
+{
+struct treenode *data;
+struct stack* next;
+
+}st;
+
+void push(st** top, treenode* d)
+{
+    st* new = (st*)malloc(sizeof(st));
+    new->data = d;
+    new->next = *top;
+    *top = new;
+    
+}
+
+treenode* peek(st* top)
+{
+    return top->data;
+}
+
+int empty(st* top)
+{
+    if(top==NULL)
+    {
+        return 1;
+    }
+    return 0;
+}
+void *pop(st** top)
+{
+    
+        st* temp=*top;
+        *top=(*top)->next;
+        free(temp);
+        temp=NULL;    
+}
+
+
+ int countnodes(treenode* root)
+ {
+     //int count=0;
+     if(root!=NULL)
+     {
+        countnodes(root->left);
+        count++;
+        countnodes(root->right);
+     }
+     return count;
+ }
+
+int* preorderTraversal(treenode* A, int *len1) {
+     struct stack *s=NULL;
+    int size=countnodes(A);
+    int i=0;
+    int *arr=(int *)malloc(sizeof(int)*size);
+   
+    treenode *curr=A;
+    while(!empty(s)||curr)
+    {
+        while(curr)
+        {
+             arr[i]=curr->val;    
+             i++;
+            push(&s,curr);
+            curr=curr->left;
+        }
+   
+    curr=peek(s)->right;
+    pop(&s);
+    }
+    *len1=i;
+   
+    return arr;
+}
