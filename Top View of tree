@@ -1,0 +1,179 @@
+/*         -----HACKER RANK PROBLEM---------------
+You are given a pointer to the root of a binary tree. Print the top view of the binary tree. 
+Top view means when you look the tree from the top the nodes, what you will see will be called the top view of the tree. See the example below. 
+You only have to complete the function. 
+For example :
+
+   1
+    \
+     2
+      \
+       5
+      /  \
+     3    6
+      \
+       4
+Top View : 1 -> 2 -> 5 -> 6
+*/
+
+
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+struct node {
+    
+    int data;
+    struct node *left;
+    struct node *right;
+  
+};
+
+struct node* insert( struct node* root, int data ) {
+		
+	if(root == NULL) {
+	
+        struct node* node = (struct node*)malloc(sizeof(struct node));
+
+        node->data = data;
+
+        node->left = NULL;
+        node->right = NULL;
+        return node;
+	  
+	} else {
+      
+		struct node* cur;
+		
+		if(data <= root->data) {
+            cur = insert(root->left, data);
+            root->left = cur;
+		} else {
+            cur = insert(root->right, data);
+            root->right = cur;
+		}
+	
+		return root;
+	}
+}
+
+/* you only have to complete the function given below.  
+node is defined as  
+
+struct node {
+    
+    int data;
+    struct node *left;
+    struct node *right;
+  
+};
+
+*/
+
+ 
+typedef struct STree
+{
+    struct node* tnode;
+    int dist;
+}STree;
+typedef struct queue
+{
+   struct STree* st;
+    struct queue* next;
+}queue;
+
+void push(queue** front,queue** rear,STree* m)
+{
+    queue* q=(queue*)malloc(sizeof(queue));
+    q->st=m;
+    q->next=NULL;
+    if(*front==NULL && *rear==NULL)
+    {
+        *front=q;
+        *rear=q;
+    }
+    else
+    {
+        (*rear)->next=q;
+         *rear=q;
+    }
+}
+void pop(queue** front,queue** rear)
+{
+    if(*front==*rear)
+    {
+        *front=NULL;
+        *rear=NULL;
+    }
+    else
+        *front=(*front)->next;
+}
+
+
+
+void topView( struct node *root) 
+{
+   
+   int arr[100];
+    for(int i=0;i<100;i++)
+    arr[i]=0;
+    int i=0;
+    int center=50;
+    STree* sroot=(STree*)malloc(sizeof(STree));         //put root node in queue
+    sroot->tnode=root;
+    sroot->dist=0;
+    queue* front=NULL;
+    queue* rear=NULL;
+    push(&front,&rear,sroot);
+    while(front && rear)
+    {
+        int index=front->st->dist;
+        int value=front->st->tnode->data;
+        if(arr[center+index]==0)
+            arr[center+index]=value;
+        if(front->st->tnode->left)
+        {
+            STree* nn=(STree*)malloc(sizeof(STree));
+            nn->dist=front->st->dist-1;
+            nn->tnode=front->st->tnode->left;
+            push(&front,&rear,nn);
+        }
+        //check right
+        if(front->st->tnode->right)
+        {
+            STree* nn=(STree*)malloc(sizeof(STree));
+            nn->dist=front->st->dist+1;
+            nn->tnode=front->st->tnode->right;
+            push(&front,&rear,nn);
+        }
+        //remove that element from queue
+        pop(&front,&rear);
+    }
+   // printf("TOP VIEW: ");
+    for(int i=0;i<100;i++)
+    {
+        if(arr[i]!=0)
+            printf("%d ",arr[i]);
+    }
+
+}
+
+
+int main() {
+  
+    struct node* root = NULL;
+    
+    int t;
+    int data;
+
+    scanf("%d", &t);
+
+    while(t-- > 0) {
+        scanf("%d", &data);
+        root = insert(root, data);
+    }
+  
+	topView(root);
+    return 0;
+}
