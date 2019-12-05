@@ -1,0 +1,158 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+struct node {
+    
+    int data;
+    struct node *left;
+    struct node *right;
+  
+};
+
+struct node* insert( struct node* root, int data ) {
+		
+	if(root == NULL) {
+	
+        struct node* node = (struct node*)malloc(sizeof(struct node));
+
+        node->data = data;
+
+        node->left = NULL;
+        node->right = NULL;
+        return node;
+	  
+	} else {
+      
+		struct node* cur;
+		
+		if(data <= root->data) {
+            cur = insert(root->left, data);
+            root->left = cur;
+		} else {
+            cur = insert(root->right, data);
+            root->right = cur;
+		}
+	
+		return root;
+	}
+}
+
+/* you only have to complete the function given below.  
+node is defined as  
+struct node {
+    
+    int data;
+    struct node *left;
+    struct node *right;
+  
+};*/
+
+typedef struct stree 
+{
+    struct node* tnode;
+    int dist;
+}stree;
+typedef struct queue
+{
+    struct stree* st;
+    struct queue * next;
+
+}queue;
+
+void push(queue** front,queue** rear,stree *m)
+{
+    queue *q=(queue*)malloc(sizeof(queue));
+    q->st=m;
+    q->next=NULL;
+    if(*front==NULL && *rear==NULL)
+    {
+        *front=q;
+        *rear=q;
+    }
+    else
+    {
+        (*rear)->next=q;
+        (*rear)=q;
+    }
+}
+void pop(queue** front,queue** rear)
+{
+    if(*front==*rear)
+    {
+        *front=NULL;
+        *rear=NULL;
+    }
+    else
+    {
+        *front=(*front)->next;
+    }
+}
+void BottomView( struct node *root)
+{
+    int arr[100];
+    int i=0;
+    int center=50;
+    for(i=0;i<100;i++)
+    {
+        arr[i]=0;
+    }
+   stree *sroot=(stree*)malloc(sizeof(stree));
+   sroot->tnode=root;
+   sroot->dist=0;
+    queue *front=NULL,*rear=NULL;
+    push(&front,&rear,sroot);
+
+ while(front && rear)
+ {
+     int value=front->st->tnode->data;
+     int index=front->st->dist;
+    
+       arr[center+index]=value;
+
+      
+       if(front->st->tnode->left)
+       {
+           stree *nn=(stree*)malloc(sizeof(stree));
+           nn->tnode=front->st->tnode->left;
+           nn->dist=front->st->dist-1;
+           push(&front,&rear,nn);
+           
+       }
+        if(front->st->tnode->right)
+       {
+           stree *nn=(stree*)malloc(sizeof(stree));
+           nn->tnode=front->st->tnode->right;
+           nn->dist=front->st->dist+1;
+           push(&front,&rear,nn);
+           
+       }
+       pop(&front,&rear);
+ }
+
+ for(i=0;i<100;i++)
+ {
+     if(arr[i]!=0)
+     printf("%d ",arr[i]);
+ }
+}
+
+
+int main() {
+  
+    struct node* root = NULL;
+    
+    int t;
+    int data;
+
+    scanf("%d", &t);
+
+    while(t-- > 0) {
+        scanf("%d", &data);
+        root = insert(root, data);
+    }
+  
+    BottomView(root);
+    return 0;
+}
