@@ -21,6 +21,7 @@ Constraints:
 
 Example:
 Input:
+
 2
 2 3 2
 10 20
