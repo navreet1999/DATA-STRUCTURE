@@ -1,0 +1,82 @@
+/*
+Assume there are N persons and each person needs exactly one cab. For each person, you are given the start time and end time (both inclusive) during which that person will travel. Find the minimum number of cabs required.
+
+Input: 
+First line contains an integer, N  denoting the number of persons. Next N lines contains 4 integers, and , () (), denoting the start time () and end time (). It is guaranteed that start and end time will not span midnight.
+
+Output:
+Print the minimum number of cabs required.
+
+SAMPLE INPUT 
+6
+1 0 2 0
+16 0 21 30
+9 30 13 0
+21 30 22 30
+21 30 22 30
+12 0 12 30
+SAMPLE OUTPUT 
+3
+Explanation
+
+Start and end time of N persons are:
+
+01:00 - 02:00 - He will use first cab.
+16:00 - 21:30 - He will use first cab since the first cab is free in this time period.
+09:30 - 13:00 - He will use first cab.
+21:30 - 22:30 - He will use second cab since the second person is using the first cab.
+21:30 - 22:30 - He will use third cab since the second and fourth person are using the first and second cab.
+12:00 - 12:30 - He will use second cab since the third person is using the first cab.
+So, we need only 3 cabs.*/
+
+
+
+
+/* IMPORTANT: Multiple classes and nested static classes are supported */
+
+// uncomment this if you want to read input.
+//imports for BufferedReader
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+//import for Scanner and other utility classes
+import java.util.*;
+
+
+// Warning: Printing unwanted or ill-formatted data to output will cause the test cases to fail
+
+class TestClass {
+    public static void main(String args[] ) throws Exception {
+      Scanner sc = new Scanner(System.in);
+       // Scanner sc=new Scanner(System.in);
+        int man=sc.nextInt();
+        int h1=0,m1=0,h2=0,m2=0;
+         int arr[]=new int[1500];
+        int start=0,end=0;
+        for(int i=0;i<man;i++)
+        {
+             h1=sc.nextInt();
+             m1=sc.nextInt();
+             h2=sc.nextInt();
+             m2=sc.nextInt();
+        
+             start=h1*60+m1;
+             end=h2*60+m2;
+
+             arr[start]++;
+             arr[end+1]--;
+           
+        }
+        int max=arr[0],ans=0;
+        for(int i=1;i<1500;i++)
+        {
+            arr[i]=arr[i]+arr[i-1];
+          //  System.out.println(arr[i]);
+            if(max<arr[i])
+            max=arr[i];
+        }
+        
+        System.out.println(max);
+
+    }
+}
