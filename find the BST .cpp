@@ -23,6 +23,7 @@ Constraints:
 
 Example:
 Input:
+
 2
 2
 1 2 R 1 3 L
