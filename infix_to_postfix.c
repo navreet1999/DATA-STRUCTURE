@@ -20,6 +20,7 @@ Input Format
 The only argument given is string A.
 Output Format
 
+
 Return the postfix conversion of A.
 Constraints
 
