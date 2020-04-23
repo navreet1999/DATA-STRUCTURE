@@ -54,6 +54,7 @@ public class Solution {
                 slow=slow.next;
                 fast=fast.next;
             }
+         
             fast.next=null;
             return slow;
         }
