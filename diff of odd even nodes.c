@@ -23,6 +23,7 @@ Output 1:
     10
     Sum of nodes at odd level = 23
     Sum of ndoes at even level = 13
+    
 
 Input 2:
             1
