@@ -20,6 +20,7 @@ Return 3, which is the length of the path [4,2,1,3] or [5,2,1,3].
  * };
  */
 
+
 int height(struct TreeNode * root)
 {
     if(root==NULL)
