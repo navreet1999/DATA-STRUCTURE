@@ -19,7 +19,7 @@ Constraints
 
  
 
-Examples 
+Examples
 
 Input
 3
