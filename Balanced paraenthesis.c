@@ -24,6 +24,7 @@ Input Format
 The first line contains a single integer , the number of strings. 
 Each of the next  lines contains a single string , a sequence of brackets.
 
+
 Constraints
 
 , where  is the length of the sequence.
