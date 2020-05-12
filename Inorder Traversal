@@ -24,6 +24,7 @@ struct stack* next;
 void push(st** top, treenode* d)
 {
     st* new = (st*)malloc(sizeof(st));
+    
     new->data = d;
     new->next = *top;
     *top = new;
