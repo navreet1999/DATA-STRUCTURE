@@ -24,7 +24,8 @@ void insert_at_end(struct node** h,int d)
          curr=curr->next;
       }
       curr->next=new_node;
-    }
+    
+    
 
 }
 void logic(struct node* h,int x,int y)
