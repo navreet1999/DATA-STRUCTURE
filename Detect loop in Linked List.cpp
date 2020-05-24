@@ -8,7 +8,8 @@ Output:
 For each testcase, print "True", if linked list contains loop, else print "False".
 
 User Task:
-The task is to complete the function detectloop() which contains reference to the head as only argument. This function should return 1 if linked list contains loop, else return 0.
+The task is to complete the 
+function detectloop() which contains reference to the head as only argument. This function should return 1 if linked list contains loop, else return 0.
 
 Constraints:
 1 <= T <= 50
