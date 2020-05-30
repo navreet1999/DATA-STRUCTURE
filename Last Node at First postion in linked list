@@ -20,6 +20,7 @@ void insert_at_end(struct node** h,int d)
     else
     {
      while(curr->next!=NULL)
+     
       {
          curr=curr->next;
       }
