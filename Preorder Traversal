@@ -17,6 +17,7 @@ return [1,2,3].
 /*
 
 static int count=0;
+
  typedef struct stack
 {
 struct treenode *data;
